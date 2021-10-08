@@ -1,0 +1,39 @@
+<div>
+  <div *ngFor="let c of comparatorsNames">
+<!--    <span *ngFor="let c of comparatorsNames"><ul><li>{{c}}</li></ul></span>-->
+    <input class="btn-dark" (click)="setComparators($event)" name="{{c}}" value="{{c}}" type="button">
+  </div>
+<!--  <div>-->
+<!--    <input class="btn-dark" (click)="setComparators($event)" name="firstButton" value="GAMES_PLAYED" type="button">-->
+<!--    <input class="btn-dark" (click)="setComparators($event)" name="secondButton" value="TEAM" type="button">-->
+<!--    <input class="btn-dark" (click)="setComparators($event)" name="thirdButton" value="STEALS" type="button">-->
+<!--  </div>-->
+  <div>
+    <input class="btn-dark" (click)="setComparators($event)" name="clearButton" value="clear" type="button">
+  </div>
+  <div style="text-align:center">
+    <table class="table">
+      <thead class="table-danger">
+      <tr>
+        <th scope="col" *ngFor="let tableHeadName of tableHeadNames">
+          <span (click)="tableHeadNameMethod(tableHeadName)">{{tableHeadName}}</span>
+        </th>
+      </tr>
+      </thead>
+      <tbody class="table-dark">
+      <tr *ngFor="let item of players | paginate: config; index as i">
+        <th scope="row">{{((i + 1) + (config.currentPage - 1) * config.itemsPerPage)}}</th>
+        <td>{{item.name}}</td>
+        <td>{{item.gamesPlayed}}</td>
+        <td>{{item.team}}</td>
+        <td>{{item.overallScoringPercentage| number}}</td>
+        <td>{{item.threePointPercentage | number}}</td>
+        <td>{{item.rebounds | number}}</td>
+        <td>{{item.steels | number}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+  </div>
+</div>
