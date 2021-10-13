@@ -6,7 +6,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {AppRoutingModule} from './app-routing/app-routing.module';
 import {HttpClientModule} from "@angular/common/http";
-import { NgxPaginationModule } from 'ngx-pagination';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     HttpClientModule,
     AppRoutingModule,
     NgxPaginationModule,
-
+    DragDropModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

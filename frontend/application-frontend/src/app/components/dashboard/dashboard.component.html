@@ -1,39 +1,66 @@
-<div>
-  <div *ngFor="let c of comparatorsNames">
-<!--    <span *ngFor="let c of comparatorsNames"><ul><li>{{c}}</li></ul></span>-->
-    <input class="btn-dark" (click)="setComparators($event)" name="{{c}}" value="{{c}}" type="button">
-  </div>
-<!--  <div>-->
-<!--    <input class="btn-dark" (click)="setComparators($event)" name="firstButton" value="GAMES_PLAYED" type="button">-->
-<!--    <input class="btn-dark" (click)="setComparators($event)" name="secondButton" value="TEAM" type="button">-->
-<!--    <input class="btn-dark" (click)="setComparators($event)" name="thirdButton" value="STEALS" type="button">-->
-<!--  </div>-->
-  <div>
-    <input class="btn-dark" (click)="setComparators($event)" name="clearButton" value="clear" type="button">
-  </div>
-  <div style="text-align:center">
-    <table class="table">
-      <thead class="table-danger">
-      <tr>
-        <th scope="col" *ngFor="let tableHeadName of tableHeadNames">
-          <span (click)="tableHeadNameMethod(tableHeadName)">{{tableHeadName}}</span>
-        </th>
-      </tr>
-      </thead>
-      <tbody class="table-dark">
-      <tr *ngFor="let item of players | paginate: config; index as i">
-        <th scope="row">{{((i + 1) + (config.currentPage - 1) * config.itemsPerPage)}}</th>
-        <td>{{item.name}}</td>
-        <td>{{item.gamesPlayed}}</td>
-        <td>{{item.team}}</td>
-        <td>{{item.overallScoringPercentage| number}}</td>
-        <td>{{item.threePointPercentage | number}}</td>
-        <td>{{item.rebounds | number}}</td>
-        <td>{{item.steels | number}}</td>
-      </tr>
-      </tbody>
-    </table>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let comp of comparatorsNames" cdkDrag>{{comp}}</div>
+      </div>
+      <!--    <div class="col" *ngFor="let c of comparatorsNames">-->
+      <!--      <span class="row">-->
+      <!--        <input class="btn-dark" (click)="setComparators($event)" name="{{c}}" value="{{c}}" type="button">-->
+      <!--      </span>-->
+      <!--    </div>-->
+      <!--    <div>-->
+      <!--      <input class="btn-dark" (click)="setComparators($event)" name="clearButton" value="clear" type="button">-->
+      <!--    </div>-->
+    </div>
+    <div class="col-sm" style="text-align:center">
+      <table class="table">
+        <thead class="table-danger">
+        <tr>
+          <th scope="col" *ngFor="let tableHeadName of tableHeadNames">
+            <span (click)="tableHeadNameMethod(tableHeadName)">{{tableHeadName}}</span>
+          </th>
+        </tr>
+        </thead>
+        <tbody class="table-dark">
+        <tr *ngFor="let item of players | paginate: config; index as i">
+          <th scope="row">{{((i + 1) + (config.currentPage - 1) * config.itemsPerPage)}}</th>
+          <td>{{item.name}}</td>
+          <td>{{item.gamesPlayed}}</td>
+          <td>{{item.pointsPerGame | number}}</td>
+          <td>{{item.team}}</td>
+          <td>{{item.overallScoringPercentage| number}}</td>
+          <td>{{item.threePointPercentage | number}}</td>
+          <td>{{item.rebounds | number}}</td>
+          <td>{{item.steels | number}}</td>
+        </tr>
+        </tbody>
+      </table>
 
-    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+      <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="my-3 p-3 bg-body rounded shadow-sm">
+    <h6 class="border-bottom pb-2 mb-0">Recent updates</h6>
+    <div class="d-flex text-muted pt-3" *ngFor="let article of articles">
+      <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32"
+           xmlns="http://www.w3.org/2000/svg"
+           role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>
+        Placeholder</title>
+        <rect width="100%" height="100%" fill="#007bff"/>
+        <text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text>
+      </svg>
+
+      <p class="pb-3 mb-0 small lh-sm border-bottom">
+        <strong class="d-block text-gray-dark">{{article.articleTitle}}</strong>
+        {{article.articleContent}}
+      </p>
+    </div>
+    <small class="d-block text-end mt-3">
+      <a href="#">All updates</a>
+    </small>
   </div>
 </div>

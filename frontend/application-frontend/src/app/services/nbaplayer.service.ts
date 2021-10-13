@@ -9,26 +9,23 @@ const baseURL = "http://localhost:8080";
   providedIn: 'root'
 })
 
-
 export class NBAPlayerService {
-
-
   constructor(private http: HttpClient) {
   }
 
   getAllPlayers(): Observable<NBAPlayer[]> {
-    return this.http.get<NBAPlayer[]>(baseURL+"/dashboard/all");
+    return this.http.get<NBAPlayer[]>(baseURL + "/dashboard/all");
   }
 
-  getAllPlayersSorted(param:string) {
-    return this.http.get<NBAPlayer[]>(baseURL+"/dashboard/sorted", {params: {param}});
+  getAllPlayersSorted(param: string) {
+    return this.http.get<NBAPlayer[]>(baseURL + "/dashboard/sorted", {params: {param}});
   }
 
   sendComparatorParams(params: string[]) {
-    return this.http.get<NBAPlayer[]>(baseURL+"/dashboard/comparators", {params: {params}});
+    return this.http.get<NBAPlayer[]>(baseURL + "/dashboard/comparators", {params: {params}});
   }
 
   comparatorsNames(): Observable<string[]> {
-    return this.http.get<string[]>(baseURL+"/dashboard/comparators-names");
+    return this.http.get<string[]>(baseURL + "/dashboard/comparators-names");
   }
 }

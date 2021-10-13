@@ -3,7 +3,10 @@ package ua.com.application.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ua.com.application.dto.ArticleAuthorDTO;
+import ua.com.application.models.Article;
 import ua.com.application.models.NBAPlayer;
+import ua.com.application.services.ArticleService;
 import ua.com.application.services.NBAPlayerService;
 import ua.com.application.utils.comparators.NBAPlayerComparators;
 import ua.com.application.utils.comparators.NBAPlayersComparatorMapUtil;
@@ -18,9 +21,11 @@ import java.util.stream.Collectors;
 public class DashBoardController {
     private final NBAPlayerService playerService;
     @Autowired
-    PlayersSortUtil playersSortUtil;
+    private PlayersSortUtil playersSortUtil;
     @Autowired
-    NBAPlayersComparatorMapUtil comparatorMapUtil;
+    private NBAPlayersComparatorMapUtil comparatorMapUtil;
+    @Autowired
+    private ArticleService articleService;
 
     public DashBoardController(NBAPlayerService playerService) {
         this.playerService = playerService;
@@ -49,7 +54,17 @@ public class DashBoardController {
     }
 
     @GetMapping("/comparators-names")
-    public String[] getComparatorsNames() {
-        return comparatorMapUtil.getNbaPlayerComparatorsMap().keySet().toArray(String[]::new);
+    public Set<String> getComparatorsNames() {
+        return comparatorMapUtil.getNbaPlayerComparatorsMap().keySet();
+    }
+
+    @GetMapping("/get-all-articles")
+    public List<ArticleAuthorDTO> getAllArticlesDTO() {
+        return articleService.getAllArticlesDTO();
+    }
+
+    @PostMapping("/save-article")
+    public Article saveArticle(@RequestBody Article article) {
+        return articleService.addArticle(article);
     }
 }

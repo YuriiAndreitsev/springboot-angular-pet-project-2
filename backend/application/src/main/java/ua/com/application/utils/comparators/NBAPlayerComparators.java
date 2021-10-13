@@ -28,4 +28,11 @@ public enum NBAPlayerComparators implements Comparator<NBAPlayer> {
         }
         return 0;
     }
+
+    @Override
+    public String toString() {
+        return "NBAPlayerComparators{" +
+                "comparator=" + comparator.toString() +
+                '}';
+    }
 }

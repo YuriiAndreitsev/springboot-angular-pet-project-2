@@ -23,10 +23,9 @@ public class NBAPlayerService {
     }
 
     public List<NBAPlayer> getPlayersComparedByParams(List<String> params) {
-//        NBAPlayersComparatorMapUtil comparatorMapUtil = new NBAPlayersComparatorMapUtil();
-//        System.out.println("MAP : "+comparatorMapUtil.getNbaPlayerComparatorsMap());
         List<Comparator<NBAPlayer>> comparators = params.stream()
-                .map(comparatorMapUtil.getNbaPlayerComparatorsMap()::get).collect(Collectors.toList());
+                .map(comparatorMapUtil.getNbaPlayerComparatorsMap()::get)
+                .collect(Collectors.toList());
         Comparator<NBAPlayer> resultingComparator = ComparatorChaining.chainComparators(comparators);
         return nbaPlayerRepository.findAll().stream().sorted(resultingComparator).collect(Collectors.toList());
     }
